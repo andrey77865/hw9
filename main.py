@@ -36,7 +36,7 @@ def show_all(*args):
         print("Contact list is empty")
     else:
         for name, phone in CONTACTS.items():
-            print(f"Name: {name}, phone: {phone}\n")
+            print(f"Name: {name}, phone: {phone}")
 
 
 handler = {
@@ -84,10 +84,6 @@ def app():
         if main_command not in ("hello", "add", "change", "phone", "show"):
             print(
                 f"Unkmnown command '{main_command}'. You can use only 'hello', 'add', 'change', 'phone', 'show all'")
-            continue
-        # Check the second and third command is empty
-        elif user_input_list[0] == '' or user_input_list[1] == '':
-            print("Some command(s) is empty, please try again")
             continue
 
         commands_to_handler(main_command, user_input_list)

@@ -66,25 +66,30 @@ def app():
     while True:
         user_input = input("Input command: ").lower()
 
-        # STEP 1. Check if user want to exit of empty input
+        # Check if user want to exit
         if user_input in ("good bye", "close", "exit"):
             print("Good bye!")
             break
+        # Check input is empty
         elif len(user_input) == 0:
             print("Empty input, please try again")
             continue
 
-        # STEP 2. Split user input to list and get the main command
+        # Split user input to list
         user_input_list = user_input.split(" ")
+        # Get the main command from user input
         main_command = user_input_list.pop(0)
 
-        # STEP 3. Check if main command is valid
+        # Check the main command is valid
         if main_command not in ("hello", "add", "change", "phone", "show"):
             print(
                 f"Unkmnown command '{main_command}'. You can use only 'hello', 'add', 'change', 'phone', 'show all'")
             continue
+        # Check the second and third command is empty
+        elif user_input_list[0] == '' or user_input_list[1] == '':
+            print("Some command(s) is empty, please try again")
+            continue
 
-        # STEP 4. Execute
         commands_to_handler(main_command, user_input_list)
 
 

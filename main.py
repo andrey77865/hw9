@@ -69,11 +69,14 @@ def send_commands_to_func(main_command, user_input_list):
     # Call func with 1 arg (show phone number)
     elif len(user_input_list) == 1:
         current_execution = funcs_dict[main_command]
-        return current_execution(user_input_list[0])
+        name = user_input_list[0].title()
+        return current_execution(name)
     # Call func with 2 arg (add, change)
     elif len(user_input_list) == 2:
         current_execution = funcs_dict[main_command]
-        return current_execution(user_input_list[0], user_input_list[1])
+        name = user_input_list[0].title()
+        phone = user_input_list[1]
+        return current_execution(name, phone)
     else:
         print("Too many commands, try again.")
 

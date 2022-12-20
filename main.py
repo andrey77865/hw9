@@ -39,7 +39,7 @@ def show_all(*args):
             print(f"Name: {name}, phone: {phone}")
 
 
-handler = {
+funcs_dict = {
     "hello": lambda: print("How can I help you?"),
     "add": add_contact,
     "change": change_contact,
@@ -48,21 +48,37 @@ handler = {
 }
 
 
-def commands_to_handler(main_command, user_input_list):
+def send_commands_to_func(main_command, user_input_list):
+    """
+    Returns a function call with arguments 
+    from the user_input_list.
+
+        Parameters:
+            main_command (str): the first command (add, change, etc.).
+            user_input_list (lst): of other commands depending 
+                on the number of elements in the list.
+
+        Returns:
+            function call that corresponds to main_command 
+                with arguments from the list of commands.
+    """
+    # Call func with 0 args (hello)
     if len(user_input_list) == 0:
-        current_execution = handler[main_command]
+        current_execution = funcs_dict[main_command]
         return current_execution()
+    # Call func with 1 arg (show phone number)
     elif len(user_input_list) == 1:
-        current_execution = handler[main_command]
+        current_execution = funcs_dict[main_command]
         return current_execution(user_input_list[0])
+    # Call func with 2 arg (add, change)
     elif len(user_input_list) == 2:
-        current_execution = handler[main_command]
+        current_execution = funcs_dict[main_command]
         return current_execution(user_input_list[0], user_input_list[1])
     else:
         print("Too many commands, try again.")
 
 
-def app():
+def handler_app():
     while True:
         user_input = input("Input command: ").lower()
 
@@ -77,7 +93,7 @@ def app():
 
         # Split user input to list
         user_input_list = user_input.split(" ")
-        # Get the main command from user input
+        # Take the main command from user input
         main_command = user_input_list.pop(0)
 
         # Check the main command is valid
@@ -86,8 +102,8 @@ def app():
                 f"Unkmnown command '{main_command}'. You can use only 'hello', 'add', 'change', 'phone', 'show all'")
             continue
 
-        commands_to_handler(main_command, user_input_list)
+        send_commands_to_func(main_command, user_input_list)
 
 
 if __name__ == "__main__":
-    app()
+    handler_app()
